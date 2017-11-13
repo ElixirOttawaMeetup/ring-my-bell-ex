@@ -11,6 +11,7 @@ defmodule RingMyBellExWeb.ErrorView do
   # the template name. For example, "404.html" becomes
   # "Not Found".
   def template_not_found(template, _assigns) do
-    Phoenix.Controller.status_message_from_template(template)
+    #Phoenix.Controller.status_message_from_template(template)
+    "Error"
   end
 end
