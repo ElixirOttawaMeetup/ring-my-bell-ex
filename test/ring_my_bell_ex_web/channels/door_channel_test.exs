@@ -22,6 +22,7 @@ defmodule RingMyBellExWeb.DoorChannelTest do
 
     test "ring add a client id to BellAgent", %{socket: socket, client_id: client_id, name: name} do
       push socket, "ring", %{"client_id" => client_id}
+      assert_broadcast "ring", %{}
       assert BellAgent.list_ringers(name) == [client_id]
     end
 
