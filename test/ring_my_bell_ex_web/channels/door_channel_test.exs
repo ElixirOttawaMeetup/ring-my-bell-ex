@@ -1,6 +1,7 @@
 defmodule RingMyBellExWeb.DoorChannelTest do
   use RingMyBellExWeb.ChannelCase
 
+  alias RingMyBellEx.BellAgent
   alias RingMyBellExWeb.DoorChannel
 
   setup do
@@ -12,9 +13,18 @@ defmodule RingMyBellExWeb.DoorChannelTest do
     {:ok, socket: socket, name: name, client_id: client_id}
   end
 
-  test "ring sends a broadcast to all clients", %{socket: socket, client_id: client_id} do
-    push socket, "ring", %{"client_id" => client_id}
-    assert_broadcast "ring", %{}
+  describe "ring" do
+
+    test "ring sends a broadcast to all clients", %{socket: socket, client_id: client_id} do
+      push socket, "ring", %{"client_id" => client_id}
+      assert_broadcast "ring", %{}
+    end
+
+    test "ring add a client id to BellAgent", %{socket: socket, client_id: client_id, name: name} do
+      push socket, "ring", %{"client_id" => client_id}
+      assert BellAgent.list_ringers(name) == [client_id]
+    end
+
   end
 
 end
