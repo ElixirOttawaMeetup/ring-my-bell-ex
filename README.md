@@ -1,5 +1,7 @@
 # RingMyBellEx
 
+[![Master](https://travis-ci.org/ElixirOttawaMeetup/ring-my-bell-ex.svg?branch=master)](https://travis-ci.org/ElixirOttawaMeetup/ring-my-bell-ex)
+
 A simple Phoenix application for folks that are door duty for meetups.
 
 To start your Phoenix server:
