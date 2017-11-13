@@ -2,7 +2,7 @@ defmodule RingMyBellExWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", RingMyBellExWeb.RoomChannel
+  channel "door:*", RingMyBellExWeb.DoorChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket

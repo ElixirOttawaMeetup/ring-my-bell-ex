@@ -17,6 +17,11 @@ defmodule RingMyBellExWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+
+    get "/doors/:id", DoorsController, :show
+    get "/bells/new", BellsController, :new
+    get "/bells/:id", BellsController, :show
+    post "/bells", BellsController, :create
   end
 
   # Other scopes may use custom stacks.

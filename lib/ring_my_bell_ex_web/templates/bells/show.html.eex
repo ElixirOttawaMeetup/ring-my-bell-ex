@@ -1,0 +1,7 @@
+<h1><%= @id %></h1>
+
+<div id="bell" data-bell-id="<%= @id %>">
+  <h3 class="waiters">
+    0 folk(s) waiting
+  </h3>
+</div>
