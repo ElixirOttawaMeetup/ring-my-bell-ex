@@ -1,0 +1,38 @@
+@startuml
+database LocalStorage
+actor Organizer
+actor Waiter
+control Web
+control Channel
+database Agent
+database AgentCache
+
+Organizer -> Web: GET /bells/new
+Organizer -> Web: POST /bells/ name -> "elixir-meetup-ottawa"
+Organizer -> LocalStorage: Save own name
+Organizer -> Web: GET /bells/elixir-meetup-ottawa
+Organizer -> Channel: Join
+Channel -> Organizer: existing waiters
+
+...
+
+group Happens many times
+  Waiter -> Web: GET /doors/elixir-meetup-ottawa
+  Waiter -> Channel: Join
+  Waiter -> LocalStorage: Save client ID 11eeff45
+  Waiter -> Channel: push "ring", client ID -> 11eeff45
+  Channel -> Agent: Add new client
+  Agent -> AgentCache: Save valid operation
+
+  Channel -> Organizer: broadcast! "ring"
+  Organizer -> Organizer: inc waiters
+end
+
+...
+
+Organizer -> Channel: push "coming"
+Channel -> Agent: Remove all client IDs for bell
+Agent -> AgentCache: Save valid operation
+
+Channel -> Waiter: "Someone is coming"
+@enduml

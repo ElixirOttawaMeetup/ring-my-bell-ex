@@ -1,4 +1,11 @@
 defmodule RingMyBellExWeb.DoorChannel do
+  @moduledoc """
+  The main channel which the organizers communicate with the waiters.
+
+  See the sequence diagram for details on the communication:
+
+  ![main_sequence](main_sequence.png)
+  """
   use Phoenix.Channel
 
   def join("door:" <> _private_room_id, _params, socket) do
