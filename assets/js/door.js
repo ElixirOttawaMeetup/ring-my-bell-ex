@@ -1,11 +1,11 @@
-import Maybe from "./maybe"
+import Maybe from './maybe'
 import Client from './client'
 
 class View {
   constructor(client) {
     this.client = client
-    this.$view = document.getElementById("door")
-    this.$message = this.$view.querySelector(".message")
+    this.$view = document.getElementById('door')
+    this.$message = this.$view.querySelector('.message')
   }
 
   changeMessage(newMsg) {
@@ -17,7 +17,7 @@ class View {
   }
 
   bellRang() {
-    this.changeMessage("Notified the organizers")
+    this.changeMessage('Notified the organizers')
   }
 }
 
@@ -26,18 +26,18 @@ class View {
  */
 
 function getDoorId() {
-  const maybeDoorDom = Maybe(document.getElementById("door"))
+  const maybeDoorDom = Maybe(document.getElementById('door'))
   const maybeDoorId = maybeDoorDom.getAttribute('data-door-id')
 
-  return maybeDoorId.value;
+  return maybeDoorId.value
 }
 
 /* Public interface
  *
  */
 export default function(socket) {
-  const doorId = getDoorId();
-  if (!doorId) return;
+  const doorId = getDoorId()
+  if (!doorId) return
 
   const client = new Client(doorId)
   const view = new View(client)
@@ -45,12 +45,12 @@ export default function(socket) {
   const channel = socket.channel(`door:${doorId}`, {})
 
   channel.join()
-    .receive("ok", resp => {
-      channel.push("ring", {client_id: client.id})
+    .receive('ok', _resp => {
+      channel.push('ring', {client_id: client.id})
     })
-    .receive("error", resp => { console.log("Unable to join", resp) })
+    .receive('error', resp => { console.log('Unable to join', resp) })
 
-  channel.on("coming", payload => {
-    view.appendMessage("An organizer is coming down!")
+  channel.on('coming', _ => {
+    view.appendMessage('An organizer is coming down!')
   })
 }

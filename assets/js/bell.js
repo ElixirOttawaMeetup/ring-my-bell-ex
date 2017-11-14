@@ -3,10 +3,10 @@ import Client from './client'
 
 class View {
   constructor(client) {
-    this.client = client;
+    this.client = client
     this.waitingClients = []
-    this.$view = document.getElementById("bell")
-    this.$waiters = this.$view.querySelector(".waiters");
+    this.$view = document.getElementById('bell')
+    this.$waiters = this.$view.querySelector('.waiters')
   }
 
   render() {
@@ -18,18 +18,18 @@ class View {
       this.waitingClients.push(clientId)
     }
 
-    this.render();
+    this.render()
   }
 }
 function getBellId() {
-  return Maybe(document.getElementById("bell"))
+  return Maybe(document.getElementById('bell'))
     .getAttribute('data-bell-id')
-    .value;
+    .value
 }
 
 export default function(socket) {
-  const bellId = getBellId();
-  if (!bellId) return;
+  const bellId = getBellId()
+  if (!bellId) return
 
   const client = new Client(bellId)
   const view = new View(client)
@@ -37,10 +37,10 @@ export default function(socket) {
   const channel = socket.channel(`door:${bellId}`, {})
 
   channel.join()
-    .receive("ok", resp => { console.log("Joined the channel") })
-    .receive("error", resp => { console.log("Unable to join", resp) })
+    .receive('ok', _resp => { console.log('Joined the channel') })
+    .receive('error', resp => { console.log('Unable to join', resp) })
 
-  channel.on("ring", ({client_id}) => {
+  channel.on('ring', ({client_id}) => {
     view.addWaitingClient(client_id)
   })
 }

@@ -9,7 +9,7 @@ function Maybe(value) {
 
 function Nothing() {}
 Nothing.andThen = function() {
-  return Maybe(null);
+  return Maybe(null)
 }
 
 const handler = {
@@ -38,7 +38,7 @@ const handler = {
 
 class MaybeContainer {
   constructor(value) {
-    this.value = value;
+    this.value = value
   }
 
   andThen(fn) {
@@ -50,5 +50,5 @@ class MaybeContainer {
   }
 }
 
-export default Maybe;
+export default Maybe
 
