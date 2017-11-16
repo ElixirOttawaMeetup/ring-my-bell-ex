@@ -12,6 +12,13 @@ defmodule RingMyBellExWeb.DoorChannel do
     {:ok, socket}
   end
 
+  def handle_in("coming", payload, socket) do
+    "door:" <> door = socket.topic
+    RingMyBellEx.BellAgent.clear_ringers(door)
+    broadcast! socket, "coming", payload
+    {:noreply, socket}
+  end
+
   def handle_in("ring", %{"client_id" => client_id} = payload, socket) do
     "door:" <> door = socket.topic
     RingMyBellEx.BellAgent.add_ringer(door, client_id)

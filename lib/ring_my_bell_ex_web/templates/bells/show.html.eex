@@ -2,6 +2,7 @@
 
 <div id="bell" data-bell-id="<%= @id %>">
   <h3 class="waiters">
-    0 folk(s) waiting
+    <%= @count %> folk(s) waiting
   </h3>
+  <button id="coming-button">Coming!</button>
 </div>

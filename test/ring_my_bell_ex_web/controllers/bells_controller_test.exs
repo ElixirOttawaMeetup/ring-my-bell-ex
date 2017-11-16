@@ -1,8 +1,11 @@
 defmodule RingMyBellExWeb.BellsControllerTest do
   use RingMyBellExWeb.ConnCase
 
+  alias RingMyBellEx.BellAgent
+
   setup do
     name = Faker.Code.iban
+    BellAgent.clear_ringers(name)
     {:ok, conn: build_conn(), name: name}
   end
 
@@ -26,6 +29,13 @@ defmodule RingMyBellExWeb.BellsControllerTest do
     test "GET /bells/show/:id", %{conn: conn, name: name} do
       conn = get conn, "/bells/" <> name
       assert html_response(conn, 200) =~ name
+    end
+
+    test "GET /bells/show/:id shows the amount of people waiting", %{conn: conn, name: name} do
+      BellAgent.add_ringer(name, Faker.String.base64)
+      conn = get conn, "/bells/" <> name
+      assert html_response(conn, 200) =~ name
+      assert html_response(conn, 200) =~ "1 folk(s) waiting"
     end
 
   end

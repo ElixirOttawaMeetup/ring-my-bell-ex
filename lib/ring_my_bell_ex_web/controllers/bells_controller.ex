@@ -10,6 +10,9 @@ defmodule RingMyBellExWeb.BellsController do
   end
 
   def show(conn, %{"id" => id}) do
-    render conn, :show, id: id
+    count =
+      RingMyBellEx.BellAgent.list_ringers(id)
+      |> length
+    render conn, :show, id: id, count: count
   end
 end

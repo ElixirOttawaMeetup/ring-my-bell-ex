@@ -28,4 +28,19 @@ defmodule RingMyBellExWeb.DoorChannelTest do
 
   end
 
+  describe "coming" do
+
+    test "coming sends a broadcast to all clients", %{socket: socket, client_id: client_id} do
+      push socket, "coming", %{"client_id" => client_id}
+      assert_broadcast "coming", %{}
+    end
+
+    test "coming clears all ringers from a BellAgent", %{socket: socket, client_id: client_id, name: name} do
+      push socket, "coming", %{"client_id" => client_id}
+      assert_broadcast "coming", %{}
+      assert BellAgent.list_ringers(name) == []
+    end
+
+  end
+
 end
