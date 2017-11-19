@@ -11,6 +11,7 @@ defmodule RingMyBellEx.Application do
       # Start the endpoint when the application starts
       supervisor(RingMyBellExWeb.Endpoint, []),
       # Start your own worker by calling: RingMyBellEx.Worker.start_link(arg1, arg2, arg3)
+      worker(RingMyBellEx.CacheAgent, []),
       worker(RingMyBellEx.BellAgent, []),
     ]
 
