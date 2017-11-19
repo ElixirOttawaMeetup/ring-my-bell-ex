@@ -4,7 +4,9 @@
 
 [![Ebert](https://ebertapp.io/github/ElixirOttawaMeetup/ring-my-bell-ex.svg)](https://ebertapp.io/github/ElixirOttawaMeetup/ring-my-bell-ex)
 
-t simple Phoenix application for folks that are door duty for meetups.
+[`https://ring-my-bell-ex.herokuapp.com/`](https://ring-my-bell-ex.herokuapp.com/)
+
+A simple Phoenix application for folks that are door duty for meetups.
 
 To start your Phoenix server:
 
